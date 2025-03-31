@@ -1,64 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Avaliação Simplificada da Consciência (Estilo Hawkins)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação Simplificada da Consciência</title>
     <style>
         body {
             font-family: sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
         }
         .container {
-            width: 80%;
-            margin: 20px auto;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .aviso {
+            color: #dc3545;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fdecea;
+            border: 1px solid #dc3545;
+            border-radius: 5px;
+            font-size: 0.9em;
         }
         .question {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .question label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
+            font-size: 1em;
         }
         .question input[type="number"] {
-            width: 50px;
-            padding: 5px;
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
         }
         button {
-            padding: 10px 20px;
+            display: block;
+            width: 100%;
+            padding: 12px;
             background-color: #007bff;
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
         #resultado {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            display: none;
         }
-        .aviso {
-            color: red;
-            font-style: italic;
+        #resultado h2 {
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+        #resultado p {
             margin-bottom: 10px;
+            font-size: 1em;
+        }
+        #resultado strong {
+            font-weight: bold;
+        }
+        #resultado a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        #resultado a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Avaliação Simplificada da Consciência (Estilo Hawkins)</h1>
+        <h1>Avaliação Simplificada da Consciência</h1>
         <p class="aviso">
             <strong>Aviso Importante:</strong> Este código é uma <strong>SIMPLIFICAÇÃO</strong> e NÃO reflete a metodologia oficial da escala de consciência de Hawkins. É apenas uma ferramenta alternativa, baseada em seus ensinamentos.
         </p>
 
         <div id="perguntas-container">
-            </div>
+        </div>
 
         <button onclick="avaliar()">Avaliar</button>
 
         <div id="resultado" style="display: none;">
-            <h2>--- Resultados Simplificados (Escala Hawkins Aproximada) ---</h2>
+            <h2>--- Resultados Simplificados ---</h2>
             <p id="nivel-hawkins"></p>
             <p id="interpretacao"></p>
             <br>
@@ -85,7 +139,6 @@
 
         const perguntasContainer = document.getElementById('perguntas-container');
         const resultadoDiv = document.getElementById('resultado');
-        const pontuacaoMediaParagrafo = document.getElementById('pontuacao-media');
         const nivelHawkinsParagrafo = document.getElementById('nivel-hawkins');
         const interpretacaoParagrafo = document.getElementById('interpretacao');
 
@@ -107,39 +160,39 @@
         }
 
     function avaliar() {
-    const respostas = [];
-    for (let i = 0; i < perguntas.length; i++) {
-        const input = document.getElementById(`resposta-${i}`);
-        const resposta = parseInt(input.value);
-        if (isNaN(resposta) || resposta < 1 || resposta > 10) {
-            alert("Por favor, responda todas as perguntas com um número de 1 a 10.");
-            return;
+        const respostas = [];
+        for (let i = 0; i < perguntas.length; i++) {
+            const input = document.getElementById(`resposta-${i}`);
+            const resposta = parseInt(input.value);
+            if (isNaN(resposta) || resposta < 1 || resposta > 10) {
+                alert("Por favor, responda todas as perguntas com um número de 1 a 10.");
+                return;
+            }
+            respostas.push(resposta);
         }
-        respostas.push(resposta);
+
+        const pontuacaoTotal = respostas.reduce((sum, num) => sum + num, 0);
+        const media10 = pontuacaoTotal / respostas.length;
+        const mediaHawkins = 20 + (media10 - 1) * (600 - 20) / (10 - 1);
+
+        nivelHawkinsParagrafo.textContent = `Nível de Consciência Estimado: ${mediaHawkins.toFixed(2)}`;
+
+        let interpretacao = "";
+        if (mediaHawkins <= 199) {
+            interpretacao = "Suas respostas podem sugerir uma tendência para níveis inferiores da escala de Hawkins (abaixo da Coragem).";
+        } else if (mediaHawkins >= 200 && mediaHawkins < 300) {
+            interpretacao = "Suas respostas podem sugerir uma possível aproximação do nível da Coragem e Neutralidade.";
+        } else if (mediaHawkins >= 300 && mediaHawkins < 400) {
+            interpretacao = "Suas respostas podem sugerir uma inclinação para níveis como Disposição e Aceitação.";
+        } else if (mediaHawkins >= 400 && mediaHawkins < 500) {
+            interpretacao = "Suas respostas podem sugerir uma possível conexão com o nível da Razão.";
+        } else if (mediaHawkins >= 500) {
+            interpretacao = "Suas respostas podem sugerir uma inclinação para níveis mais elevados como Amor e acima.";
+        }
+        interpretacaoParagrafo.textContent = interpretacao;
+
+        resultadoDiv.style.display = 'block';
     }
-
-    const pontuacaoTotal = respostas.reduce((sum, num) => sum + num, 0);
-    const media10 = pontuacaoTotal / respostas.length;
-    const mediaHawkins = 20 + (media10 - 1) * (600 - 20) / (10 - 1);
-
-    nivelHawkinsParagrafo.textContent = `Nível de Consciência Estimado (Escala Hawkins Aproximada - De 20 a 600): ${mediaHawkins.toFixed(2)}`;
-
-    let interpretacao = "";
-    if (mediaHawkins <= 199) {
-        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma tendência para níveis inferiores da escala de Hawkins (abaixo da CORAGEM).";
-    } else if (mediaHawkins >= 200 && mediaHawkins < 300) {
-        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma possível aproximação do nível da CORAGEM e NEUTRALIDADE.";
-    } else if (mediaHawkins >= 300 && mediaHawkins < 400) {
-        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma inclinação para níveis como DISPOSIÇÃO e ACEITAÇÃO.";
-    } else if (mediaHawkins >= 400 && mediaHawkins < 500) {
-        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma possível conexão com o nível da RAZÃO.";
-    } else if (mediaHawkins >= 500) {
-        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma inclinação para níveis mais elevados como AMOR e acima.";
-    }
-    interpretacaoParagrafo.textContent = interpretacao;
-
-    resultadoDiv.style.display = 'block';
-}
 
         // Exibir as perguntas quando a página carregar
         exibirPerguntas();
