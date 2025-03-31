@@ -104,40 +104,40 @@
             });
         }
 
-        function avaliar() {
-            const respostas = [];
-            for (let i = 0; i < perguntas.length; i++) {
-                const input = document.getElementById(`resposta-${i}`);
-                const resposta = parseInt(input.value);
-                if (isNaN(resposta) || resposta < 1 || resposta > 10) {
-                    alert("Por favor, responda todas as perguntas com um número de 1 a 10.");
-                    return;
-                }
-                respostas.push(resposta);
-            }
-
-            const pontuacaoTotal = respostas.reduce((sum, num) => sum + num, 0);
-            const media10 = pontuacaoTotal / respostas.length;
-            const mediaHawkins = 20 + (media10 - 1) * (600 - 20) / (10 - 1);
-
-            nivelHawkinsParagrafo.textContent = `Nível de Consciência Estimado (Escala Hawkins Aproximada - De 20 a 600): ${mediaHawkins.toFixed(2)}`;
-
-            let interpretacao = "";
-            if (mediaHawkins <= 199) {
-                interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma tendência para níveis inferiores da escala de Hawkins (abaixo da CORAGEM).";
-            } else if (200 <= mediaHawkins < 300) {
-                interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma possível aproximação do nível da CORAGEM e NEUTRALIDADE.";
-            } else if (300 <= mediaHawkins < 400) {
-                interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma inclinação para níveis como DISPOSIÇÃO e ACEITAÇÃO.";
-            } else if (400 <= mediaHawkins < 500) {
-                interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma possível conexão com o nível da RAZÃO.";
-            } else if (mediaHawkins >= 500) {
-                interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma inclinação para níveis mais elevados como AMOR e acima.";
-            }
-            interpretacaoParagrafo.textContent = interpretacao;
-
-            resultadoDiv.style.display = 'block';
+    function avaliar() {
+    const respostas = [];
+    for (let i = 0; i < perguntas.length; i++) {
+        const input = document.getElementById(`resposta-${i}`);
+        const resposta = parseInt(input.value);
+        if (isNaN(resposta) || resposta < 1 || resposta > 10) {
+            alert("Por favor, responda todas as perguntas com um número de 1 a 10.");
+            return;
         }
+        respostas.push(resposta);
+    }
+
+    const pontuacaoTotal = respostas.reduce((sum, num) => sum + num, 0);
+    const media10 = pontuacaoTotal / respostas.length;
+    const mediaHawkins = 20 + (media10 - 1) * (600 - 20) / (10 - 1);
+
+    nivelHawkinsParagrafo.textContent = `Nível de Consciência Estimado (Escala Hawkins Aproximada - De 20 a 600): ${mediaHawkins.toFixed(2)}`;
+
+    let interpretacao = "";
+    if (mediaHawkins <= 199) {
+        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma tendência para níveis inferiores da escala de Hawkins (abaixo da CORAGEM).";
+    } else if (mediaHawkins >= 200 && mediaHawkins < 300) {
+        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma possível aproximação do nível da CORAGEM e NEUTRALIDADE.";
+    } else if (mediaHawkins >= 300 && mediaHawkins < 400) {
+        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma inclinação para níveis como DISPOSIÇÃO e ACEITAÇÃO.";
+    } else if (mediaHawkins >= 400 && mediaHawkins < 500) {
+        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma possível conexão com o nível da RAZÃO.";
+    } else if (mediaHawkins >= 500) {
+        interpretacao = "Em uma interpretação EXTREMAMENTE simplificada, suas respostas podem sugerir uma inclinação para níveis mais elevados como AMOR e acima.";
+    }
+    interpretacaoParagrafo.textContent = interpretacao;
+
+    resultadoDiv.style.display = 'block';
+}
 
         // Exibir as perguntas quando a página carregar
         exibirPerguntas();
